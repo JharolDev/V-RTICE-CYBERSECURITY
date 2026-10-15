@@ -1,0 +1,728 @@
+
+/* VÉRTICE — OSINT Dashboard
+   Estilos aislados para no afectar la landing principal. */
+
+.osint-app {
+  --osint-bg: #f4f7fb;
+  --osint-panel: #ffffff;
+  --osint-sidebar: #111d32;
+  --osint-text: #1b2535;
+  --osint-muted: #78869e;
+  --osint-border: #e2e8f1;
+  --osint-blue: #3168e8;
+  --osint-purple: #9160ed;
+
+  display: flex;
+  min-height: 100vh;
+  color: var(--osint-text);
+  background: var(--osint-bg);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.osint-app *,
+.osint-app *::before,
+.osint-app *::after {
+  box-sizing: border-box;
+}
+
+.osint-app button,
+.osint-app input {
+  font: inherit;
+}
+
+.osint-app button {
+  cursor: pointer;
+}
+
+.osint-app a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.osint-app .sidebar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex: 0 0 283px;
+  flex-direction: column;
+  width: 283px;
+  height: 100vh;
+  padding: 30px 19px 24px;
+  color: #e5ecf8;
+  background: var(--osint-sidebar);
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.osint-app .brand {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  min-width: 0;
+  margin: 0 10px 39px;
+}
+
+.osint-app .brand-icon {
+  display: grid;
+  flex: 0 0 49px;
+  width: 49px;
+  height: 49px;
+  place-items: center;
+  border-radius: 15px;
+  color: white;
+  background: var(--osint-blue);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+.osint-app .brand > div:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.osint-app .brand strong {
+  color: #e6edf8;
+  font-size: 14px;
+  letter-spacing: 0.12em;
+}
+
+.osint-app .brand > div:last-child span {
+  color: #a8b5ca;
+  font-size: 11px;
+  letter-spacing: 0.13em;
+}
+
+.osint-app .menu-label {
+  margin: 0 13px 13px;
+  color: #8797b0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+
+.osint-app .navigation {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.osint-app .nav-item {
+  display: flex;
+  min-height: 52px;
+  align-items: center;
+  gap: 13px;
+  padding: 0 14px;
+  border-left: 3px solid transparent;
+  border-radius: 10px;
+  color: #aebbd0;
+  transition:
+    color 180ms ease,
+    background 180ms ease,
+    border-color 180ms ease;
+}
+
+.osint-app .nav-item > span {
+  font-size: 13px;
+}
+
+.osint-app .nav-item:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.osint-app .nav-item.active {
+  border-left-color: #5b91ff;
+  color: #ffffff;
+  background: #263b5a;
+}
+
+.osint-app .sidebar-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+  padding: 18px 10px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.osint-app .status-dot {
+  width: 8px;
+  height: 8px;
+  flex: 0 0 8px;
+  border-radius: 50%;
+  background: #26c58a;
+  box-shadow: 0 0 10px rgba(38, 197, 138, 0.2);
+}
+
+.osint-app .sidebar-status strong,
+.osint-app .sidebar-status small {
+  display: block;
+}
+
+.osint-app .sidebar-status strong {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.osint-app .sidebar-status small {
+  margin-top: 4px;
+  color: #99a8bd;
+  font-size: 11px;
+}
+
+.osint-app .main-content {
+  min-width: 0;
+  flex: 1;
+  background: var(--osint-bg);
+}
+
+.osint-app .topbar {
+  position: sticky;
+  z-index: 5;
+  top: 0;
+  display: flex;
+  min-height: 82px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 0 3.5%;
+  border-bottom: 1px solid var(--osint-border);
+  background: rgba(255, 255, 255, 0.96);
+}
+
+.osint-app .topbar > span:first-child {
+  color: var(--osint-muted);
+  font-size: 13px;
+}
+
+.osint-app .topbar > span:first-child strong {
+  color: #233149;
+}
+
+.osint-app .environment {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 13px;
+  border: 1px solid var(--osint-border);
+  border-radius: 9px;
+  color: #5b6b84;
+  background: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.osint-app .environment i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #28c58b;
+}
+
+.osint-app .page-container {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 42px 3.5% 28px;
+}
+
+.osint-app .welcome {
+  margin-bottom: 34px;
+}
+
+.osint-app .eyebrow {
+  color: var(--osint-blue);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+
+.osint-app .welcome h1 {
+  margin: 15px 0 12px;
+  color: #1b2535;
+  font-size: clamp(29px, 3vw, 38px);
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 1.2;
+}
+
+.osint-app .welcome p {
+  max-width: 760px;
+  margin: 0;
+  color: var(--osint-muted);
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.osint-app .search-card,
+.osint-app .metric-card,
+.osint-app .panel-card {
+  border: 1px solid var(--osint-border);
+  border-radius: 14px;
+  background: var(--osint-panel);
+  box-shadow: 0 4px 15px rgba(22, 39, 66, 0.025);
+}
+
+.osint-app .search-card {
+  padding: 26px 29px;
+}
+
+.osint-app .section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.osint-app .step-label {
+  color: #8b9bb5;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.17em;
+}
+
+.osint-app .search-card .section-heading h2,
+.osint-app .overview-heading h2 {
+  margin: 10px 0 0;
+  color: #222d40;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.035em;
+}
+
+.osint-app .demo-tag {
+  padding: 9px 12px;
+  border-radius: 7px;
+  color: #a56408;
+  background: #fff6e7;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.osint-app .search-tabs {
+  display: flex;
+  gap: 8px;
+  margin: 28px 0 25px;
+  border-bottom: 1px solid var(--osint-border);
+}
+
+.osint-app .search-tab {
+  min-height: 48px;
+  padding: 0 16px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  color: #7c8aa3;
+  background: transparent;
+  font-size: 13px;
+}
+
+.osint-app .search-tab:hover {
+  color: var(--osint-blue);
+}
+
+.osint-app .search-tab.selected {
+  border-bottom-color: var(--osint-blue);
+  color: var(--osint-blue);
+  font-weight: 700;
+}
+
+.osint-app .search-card form label {
+  display: block;
+  margin-bottom: 10px;
+  color: #263247;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.osint-app .input-row {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+}
+
+.osint-app .input-row input {
+  min-width: 0;
+  min-height: 53px;
+  flex: 1;
+  padding: 0 16px;
+  border: 1px solid #d8e1ef;
+  border-radius: 9px;
+  outline: none;
+  color: #202c3f;
+  background: #fff;
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.osint-app .input-row input::placeholder {
+  color: #a1aec2;
+}
+
+.osint-app .input-row input:focus {
+  border-color: #5788f2;
+  box-shadow: 0 0 0 3px rgba(49, 104, 232, 0.1);
+}
+
+.osint-app .search-button {
+  min-height: 53px;
+  padding: 0 21px;
+  border: 0;
+  border-radius: 9px;
+  color: #fff;
+  background: var(--osint-blue);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition:
+    background 150ms ease,
+    transform 150ms ease;
+}
+
+.osint-app .search-button:hover {
+  background: #2457d0;
+}
+
+.osint-app .search-button:active {
+  transform: translateY(1px);
+}
+
+.osint-app .privacy-note {
+  margin: 20px 0 3px;
+  color: #8795ac;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.osint-app .overview-heading {
+  margin: 42px 0 22px;
+}
+
+.osint-app .muted-label {
+  color: #8b98ad;
+  font-size: 11px;
+}
+
+.osint-app .overview-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.osint-app .metric-card {
+  display: flex;
+  min-width: 0;
+  min-height: 165px;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 22px;
+}
+
+.osint-app .metric-icon {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  margin-bottom: 18px;
+  border-radius: 11px;
+  font-size: 19px;
+}
+
+.osint-app .metric-icon.blue {
+  color: #3475ff;
+  background: #edf3ff;
+}
+
+.osint-app .metric-icon.violet {
+  color: #9564ef;
+  background: #f2edff;
+}
+
+.osint-app .metric-icon.green {
+  color: #15a978;
+  background: #e8f8f0;
+}
+
+.osint-app .metric-label {
+  color: #74849e;
+  font-size: 12px;
+}
+
+.osint-app .metric-card > strong {
+  margin-top: 9px;
+  color: #222d40;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.osint-app .metric-card > strong.metric-text {
+  font-size: 17px;
+}
+
+.osint-app .metric-card > small {
+  margin-top: 6px;
+  color: #9aa6b8;
+  font-size: 11px;
+}
+
+.osint-app .bottom-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 22px;
+}
+
+.osint-app .panel-card {
+  min-width: 0;
+  padding: 22px;
+}
+
+.osint-app .panel-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 17px;
+  border-bottom: 1px solid #edf0f5;
+}
+
+.osint-app .panel-title h3 {
+  margin: 0;
+  color: #273246;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.osint-app .panel-title > span {
+  color: #96a3b7;
+  font-family: monospace;
+  font-size: 11px;
+}
+
+.osint-app .empty-state {
+  display: flex;
+  min-height: 164px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 14px;
+  text-align: center;
+}
+
+.osint-app .empty-icon {
+  margin-bottom: 10px;
+  color: #9aa8bc;
+  font-size: 23px;
+}
+
+.osint-app .empty-state strong {
+  color: #59677d;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.osint-app .empty-state p {
+  max-width: 330px;
+  margin: 8px 0 0;
+  color: #8b98ac;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.osint-app .page-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 30px;
+  padding: 21px 0 0;
+  border-top: 1px solid var(--osint-border);
+  color: #8996a9;
+  font-size: 10px;
+}
+
+@media (max-width: 1050px) {
+  .osint-app .sidebar {
+    flex-basis: 235px;
+    width: 235px;
+  }
+
+  .osint-app .page-container {
+    padding-right: 24px;
+    padding-left: 24px;
+  }
+
+  .osint-app .topbar {
+    padding-right: 24px;
+    padding-left: 24px;
+  }
+
+  .osint-app .search-card {
+    padding: 23px;
+  }
+}
+
+@media (max-width: 760px) {
+  .osint-app .sidebar {
+    flex-basis: 67px;
+    width: 67px;
+    padding: 22px 8px;
+  }
+
+  .osint-app .brand {
+    justify-content: center;
+    margin: 0 0 35px;
+  }
+
+  .osint-app .brand-icon {
+    flex-basis: 45px;
+    width: 45px;
+    height: 45px;
+    border-radius: 13px;
+  }
+
+  .osint-app .brand > div:last-child,
+  .osint-app .menu-label,
+  .osint-app .nav-item > span,
+  .osint-app .sidebar-status > div:last-child {
+    display: none;
+  }
+
+  .osint-app .nav-item {
+    justify-content: center;
+    padding: 0;
+    border-left-width: 2px;
+    font-size: 18px;
+  }
+
+  .osint-app .sidebar-status {
+    justify-content: center;
+    padding: 16px 0 0;
+  }
+
+  .osint-app .topbar {
+    min-height: 69px;
+    padding: 0 16px;
+  }
+
+  .osint-app .environment {
+    gap: 7px;
+    padding: 8px;
+    font-size: 9px;
+  }
+
+  .osint-app .page-container {
+    padding: 29px 15px 22px;
+  }
+
+  .osint-app .welcome {
+    margin-bottom: 25px;
+  }
+
+  .osint-app .welcome h1 {
+    font-size: 29px;
+  }
+
+  .osint-app .welcome p {
+    font-size: 13px;
+  }
+
+  .osint-app .search-card {
+    padding: 20px 15px;
+  }
+
+  .osint-app .search-card .section-heading {
+    align-items: flex-start;
+  }
+
+  .osint-app .search-card .section-heading h2 {
+    font-size: 18px;
+  }
+
+  .osint-app .demo-tag {
+    max-width: 112px;
+    padding: 8px;
+    font-size: 8px;
+    text-align: center;
+    white-space: normal;
+  }
+
+  .osint-app .search-tabs {
+    gap: 0;
+    margin-top: 22px;
+  }
+
+  .osint-app .search-tab {
+    flex: 1;
+    padding: 0 4px;
+    font-size: 11px;
+  }
+
+  .osint-app .input-row {
+    flex-direction: column;
+  }
+
+  .osint-app .input-row input,
+  .osint-app .search-button {
+    width: 100%;
+    min-height: 49px;
+  }
+
+  .osint-app .overview-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 32px;
+  }
+
+  .osint-app .overview-grid,
+  .osint-app .bottom-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .osint-app .metric-card {
+    min-height: 150px;
+  }
+
+  .osint-app .panel-card {
+    padding: 18px 15px;
+  }
+
+  .osint-app .page-footer {
+    flex-direction: column;
+    gap: 7px;
+  }
+}
+
+@media (max-width: 420px) {
+  .osint-app .sidebar {
+    flex-basis: 55px;
+    width: 55px;
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+
+  .osint-app .brand-icon {
+    flex-basis: 39px;
+    width: 39px;
+    height: 39px;
+  }
+
+  .osint-app .topbar > span:first-child {
+    font-size: 11px;
+  }
+
+  .osint-app .environment {
+    font-size: 8px;
+  }
+
+  .osint-app .welcome h1 {
+    font-size: 26px;
+  }
+}

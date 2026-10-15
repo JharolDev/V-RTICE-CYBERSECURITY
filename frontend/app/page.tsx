@@ -1,389 +1,329 @@
+
 "use client";
+
+import { useEffect, useRef } from "react";
 
 const services = [
   {
     number: "01",
-    code: "OSINT / DIGITAL INTELLIGENCE",
-    title: "Inteligencia de fuentes abiertas",
+    code: "INT-OSINT",
+    title: "OSINT",
     description:
-      "Recopilación, análisis y correlación de información procedente de fuentes públicas y autorizadas.",
-    tags: ["Open Source Intelligence", "Análisis de información"],
+      "Inteligencia de fuentes abiertas, correlación de información y análisis de exposición digital.",
     href: "/osint",
-    action: "Explorar plataforma",
-    featured: true,
+    action: "Acceder a la plataforma",
   },
   {
     number: "02",
-    code: "REVERSE ENGINEERING",
+    code: "REV-ENG",
     title: "Ingeniería inversa",
     description:
-      "Análisis técnico de software, binarios y aplicaciones para comprender su funcionamiento e identificar riesgos.",
-    tags: ["Análisis de software", "Análisis estático"],
+      "Análisis técnico de software, binarios y comportamiento de aplicaciones.",
     href: "#contacto",
-    action: "Consultar servicio",
-    featured: false,
+    action: "Explorar servicio",
   },
   {
     number: "03",
-    code: "OFFENSIVE SECURITY",
+    code: "OFF-SEC",
     title: "Hacking ético",
     description:
-      "Evaluaciones controladas de seguridad para identificar debilidades y fortalecer los sistemas tecnológicos.",
-    tags: ["Pruebas autorizadas", "Evaluación de seguridad"],
+      "Evaluación controlada de sistemas para identificar debilidades de seguridad.",
     href: "#contacto",
-    action: "Consultar servicio",
-    featured: false,
+    action: "Explorar servicio",
   },
   {
     number: "04",
-    code: "WEB APPLICATION SECURITY",
+    code: "APP-SEC",
     title: "Seguridad de aplicaciones web",
     description:
-      "Identificación y validación de vulnerabilidades en sitios web y aplicaciones mediante evaluaciones técnicas autorizadas.",
-    tags: ["Web Vulnerability Assessment", "Web Pentest"],
+      "Identificación y validación de vulnerabilidades en sitios y aplicaciones.",
     href: "#contacto",
-    action: "Consultar servicio",
-    featured: false,
+    action: "Explorar servicio",
   },
 ];
 
 export default function Home() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const context = canvas?.getContext("2d");
+    if (!canvas || !context) return;
+
+    let width = 0;
+    let height = 0;
+    let animationFrame = 0;
+    let offset = 0;
+
+    const resize = () => {
+      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width * ratio;
+      canvas.height = height * ratio;
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      context.setTransform(ratio, 0, 0, ratio, 0, 0);
+    };
+
+    const draw = () => {
+      context.clearRect(0, 0, width, height);
+
+      const spacing = 34;
+      const columns = Math.ceil(width / spacing);
+      const rows = Math.ceil(height / 18);
+
+      context.font = "10px monospace";
+      context.textAlign = "center";
+
+      for (let col = 0; col < columns; col++) {
+        const x = col * spacing + 10;
+
+        for (let row = 0; row < rows; row++) {
+          const y = ((row * 18 + offset * (1 + (col % 3) * 0.2)) %
+            (height + 30)) - 15;
+
+          const seed = Math.sin(col * 12.9898 + row * 78.233);
+          const active = (row * 7 + col * 13) % 11 === 0;
+          const glyph = seed > 0 ? "1" : "0";
+
+          context.fillStyle = active
+            ? "rgba(139, 145, 160, 0.20)"
+            : "rgba(115, 125, 145, 0.07)";
+
+          context.fillText(glyph, x, y);
+        }
+      }
+
+      offset += 0.22;
+      animationFrame = requestAnimationFrame(draw);
+    };
+
+    resize();
+    draw();
+    window.addEventListener("resize", resize);
+
+    return () => {
+      cancelAnimationFrame(animationFrame);
+      window.removeEventListener("resize", resize);
+    };
+  }, []);
+
   return (
-    <main className="landing">
-      <header className="landing-header">
-        <a className="landing-brand" href="#inicio" aria-label="Colombia Intelligence, inicio">
-          <span className="landing-logo">CI<span>.</span></span>
-          <span className="landing-brand-copy">
-            <strong>COLOMBIA</strong>
-            <small>INTELLIGENCE</small>
+    <main className="vertex-site">
+      <header className="site-header">
+        <a className="brand" href="#inicio" aria-label="Vértice, inicio">
+          <span className="brand-symbol">V</span>
+          <span className="brand-name">
+            VÉRTICE
+            <small>CYBERSECURITY</small>
           </span>
         </a>
 
-        <nav className="landing-nav" aria-label="Navegación principal">
+        <nav className="main-nav" aria-label="Navegación principal">
           <a href="#nosotros">Nosotros</a>
           <a href="#servicios">Servicios</a>
           <a href="#aliados">Aliados</a>
           <a href="#contacto">Contacto</a>
         </nav>
 
-        <a className="header-cta" href="#servicios">
-          Explorar servicios <span>↗</span>
+        <a className="header-cta" href="#contacto">
+          Hablemos <span>↗</span>
         </a>
       </header>
 
       <section className="hero" id="inicio">
-        <div className="hero-grid" aria-hidden="true" />
-        <div className="hero-glow" aria-hidden="true" />
+        <canvas
+          ref={canvasRef}
+          className="matrix-canvas"
+          aria-hidden="true"
+        />
 
-        <div className="hero-content">
-          <div className="hero-status">
+        <div className="hero-grid" aria-hidden="true" />
+
+        <div className="hero-copy">
+          <p className="eyebrow">
             <span className="status-dot" />
-            INTELIGENCIA DIGITAL · CIBERSEGURIDAD
-          </div>
+            INTELIGENCIA DIGITAL / SEGURIDAD
+          </p>
 
           <h1>
-            Entender el entorno.
+            La seguridad
             <br />
-            <span>Anticipar el riesgo.</span>
+            empieza <span>antes.</span>
           </h1>
 
           <p className="hero-description">
-            Inteligencia digital y seguridad tecnológica para comprender
-            amenazas, identificar vulnerabilidades y tomar mejores decisiones.
+            Anticipamos amenazas, investigamos riesgos y fortalecemos
+            la seguridad digital de las organizaciones.
           </p>
 
           <div className="hero-actions">
-            <a className="primary-cta" href="#servicios">
-              Descubrir servicios <span>→</span>
+            <a className="button-primary" href="#servicios">
+              Explorar capacidades <span>↗</span>
             </a>
-            <a className="secondary-cta" href="#nosotros">
-              Conocer la propuesta <span>↘</span>
+            <a className="button-secondary" href="#nosotros">
+              Conocer Vértice <span>↓</span>
             </a>
           </div>
 
-          <div className="hero-footnote">
-            <span>01 / INTELLIGENCE</span>
-            <span>02 / SECURITY</span>
-            <span>03 / ANALYSIS</span>
+          <div className="hero-meta">
+            <span>INTELIGENCIA</span>
+            <span className="meta-separator" />
+            <span>ANÁLISIS</span>
+            <span className="meta-separator" />
+            <span>PROTECCIÓN</span>
           </div>
         </div>
 
-        <div className="hero-visual" aria-label="Visualización conceptual de inteligencia digital">
-          <div className="visual-topline">
-            <span>INTELLIGENCE SYSTEM</span>
-            <span>CI / 001</span>
-          </div>
-
-          <div className="orbit orbit-outer" />
-          <div className="orbit orbit-middle" />
-          <div className="orbit orbit-inner" />
-
-          <div className="visual-cross cross-one" />
-          <div className="visual-cross cross-two" />
-
-          <div className="visual-center">
-            <div className="visual-center-inner">
-              <span>CI</span>
-              <small>ANALYSIS</small>
+        <div className="cube-stage" aria-label="Cubo tridimensional animado">
+          <div className="cube-glow" />
+          <div className="cube-shadow" />
+          <div className="cube">
+            <div className="cube-face cube-front">
+              <span>V.</span>
+              <small>VERTEX / 001</small>
             </div>
+            <div className="cube-face cube-back" />
+            <div className="cube-face cube-right" />
+            <div className="cube-face cube-left" />
+            <div className="cube-face cube-top" />
+            <div className="cube-face cube-bottom" />
           </div>
-
-          <div className="node node-top"><span /></div>
-          <div className="node node-right"><span /></div>
-          <div className="node node-bottom"><span /></div>
-          <div className="node node-left"><span /></div>
-
-          <div className="visual-label label-top">
-            <span>01 / DISCOVER</span>
-            <strong>Intelligence</strong>
-          </div>
-          <div className="visual-label label-right">
-            <span>02 / ANALYZE</span>
-            <strong>Exposure</strong>
-          </div>
-          <div className="visual-label label-bottom">
-            <span>03 / PROTECT</span>
-            <strong>Security</strong>
-          </div>
-
-          <div className="visual-coordinates">
-            <span>COL / DIGITAL</span>
-            <span>SYSTEM STATUS: READY</span>
-          </div>
+          <div className="cube-orbit orbit-one" />
+          <div className="cube-orbit orbit-two" />
+          <span className="cube-coordinate coordinate-one">01 / INT</span>
+          <span className="cube-coordinate coordinate-two">SECURE SYSTEMS</span>
         </div>
 
-        <div className="hero-bottomline">
-          <span>INFORMACIÓN · CONTEXTO · SEGURIDAD</span>
-          <a href="#servicios">DESLIZA PARA EXPLORAR ↓</a>
+        <div className="hero-bottom">
+          <span>VÉRTICE / DIGITAL SECURITY</span>
+          <a href="#nosotros">
+            DESPLAZAR PARA DESCUBRIR <span>↓</span>
+          </a>
+          <span>BOGOTÁ · COLOMBIA</span>
         </div>
       </section>
 
-      <section className="trust-strip" aria-label="Áreas de especialización">
-        <span>ÁREAS DE ESPECIALIZACIÓN</span>
-        <div>OPEN SOURCE INTELLIGENCE</div>
-        <div>REVERSE ENGINEERING</div>
-        <div>OFFENSIVE SECURITY</div>
-        <div>WEB APPLICATION SECURITY</div>
-      </section>
+      <section className="intro-section section-wrap" id="nosotros">
+        <div className="section-label">
+          <span>01</span> / NOSOTROS
+        </div>
 
-      <section className="about-section section-light" id="nosotros">
-        <div className="section-kicker"><span>01</span> / NOSOTROS</div>
-
-        <div className="about-layout">
+        <div className="intro-content">
           <h2>
-            La información es
+            Entender el riesgo.
             <br />
-            el inicio. <span>El análisis</span>
-            <br />
-            es la diferencia.
+            <span>Actuar con precisión.</span>
           </h2>
-
-          <div className="about-copy">
+          <div className="intro-detail">
             <p>
-              Colombia Intelligence es un concepto de plataforma orientado a
-              la inteligencia digital y la ciberseguridad, con servicios
-              diseñados para descubrir información relevante, evaluar riesgos
-              y comprender la exposición tecnológica.
+              Vértice es una iniciativa de ciberseguridad e inteligencia
+              digital enfocada en comprender la exposición tecnológica,
+              identificar debilidades y convertir hallazgos en acciones.
             </p>
-            <p>
-              Integramos análisis técnico, investigación y herramientas
-              especializadas bajo un enfoque responsable, trazable y basado
-              en autorizaciones claras.
-            </p>
-            <a className="text-link" href="#servicios">
-              Conoce nuestras capacidades <span>→</span>
-            </a>
+            <span className="micro-label">
+              ANÁLISIS TÉCNICO · CRITERIO · CONFIANZA
+            </span>
           </div>
-        </div>
-
-        <div className="principles-grid">
-          <article>
-            <span>01 /</span>
-            <h3>Inteligencia</h3>
-            <p>Transformar información disponible en contexto útil para el análisis.</p>
-          </article>
-          <article>
-            <span>02 /</span>
-            <h3>Precisión técnica</h3>
-            <p>Evaluar sistemas y riesgos mediante metodologías estructuradas.</p>
-          </article>
-          <article>
-            <span>03 /</span>
-            <h3>Responsabilidad</h3>
-            <p>Trabajar con límites definidos, autorización y respeto por los datos.</p>
-          </article>
         </div>
       </section>
 
-      <section className="services-section" id="servicios">
-        <div className="section-kicker"><span>02</span> / SERVICIOS</div>
-
-        <div className="services-heading">
+      <section className="services-section section-wrap" id="servicios">
+        <div className="section-heading">
           <div>
-            <h2>
-              Capacidades para
-              <br />
-              <span>un entorno digital complejo.</span>
-            </h2>
+            <div className="section-label">
+              <span>02</span> / CAPACIDADES
+            </div>
+            <h2>Nuestros servicios</h2>
           </div>
           <p>
-            Servicios especializados para investigar, comprender y evaluar
-            entornos digitales. Selecciona una capacidad para conocer su
-            alcance.
+            Capacidades especializadas para comprender, evaluar
+            y fortalecer la seguridad digital.
           </p>
         </div>
 
         <div className="services-grid">
           {services.map((service) => (
-            <article
-              className={`service-card${service.featured ? " service-featured" : ""}`}
-              key={service.number}
-            >
-              <div className="service-card-top">
-                <span>{service.number} / 04</span>
-                <span className="service-arrow">↗</span>
+            <article className="service-card" key={service.number}>
+              <div className="service-topline">
+                <span>{service.code}</span>
+                <span>{service.number}</span>
               </div>
 
-              <div className="service-graphic" aria-hidden="true">
-                {service.number === "01" && (
-                  <div className="graphic-osint">
-                    <span className="graphic-ring ring-a" />
-                    <span className="graphic-ring ring-b" />
-                    <span className="graphic-ring ring-c" />
-                    <i className="graphic-point point-a" />
-                    <i className="graphic-point point-b" />
-                    <i className="graphic-point point-c" />
-                    <i className="graphic-point point-d" />
-                    <span className="graphic-core">CI</span>
-                  </div>
-                )}
-                {service.number === "02" && (
-                  <div className="graphic-code">
-                    <span>01001001</span>
-                    <span>10110100</span>
-                    <span>01101010</span>
-                    <span>11001001</span>
-                  </div>
-                )}
-                {service.number === "03" && (
-                  <div className="graphic-shield"><span>+</span></div>
-                )}
-                {service.number === "04" && (
-                  <div className="graphic-browser">
-                    <div><i /><i /><i /></div>
-                    <span />
-                    <span />
-                    <span />
-                    <b>!</b>
-                  </div>
-                )}
+              <div className="service-icon" aria-hidden="true">
+                {service.number === "01" && "⌕"}
+                {service.number === "02" && "⟐"}
+                {service.number === "03" && "⬡"}
+                {service.number === "04" && "⌗"}
               </div>
 
-              <span className="service-code">{service.code}</span>
               <h3>{service.title}</h3>
-              <p className="service-description">{service.description}</p>
+              <p>{service.description}</p>
 
-              <div className="service-tags">
-                {service.tags.map((tag) => <span key={tag}>{tag}</span>)}
-              </div>
-
-              <a className="service-link" href={service.href}>
-                {service.action} <span>→</span>
+              <a href={service.href} className="service-link">
+                {service.action} <span>↗</span>
               </a>
             </article>
           ))}
         </div>
-
-        <div className="services-disclaimer">
-          <span>!</span>
-          Las evaluaciones técnicas y pruebas de seguridad se realizan
-          exclusivamente sobre activos propios o con autorización expresa
-          del titular.
-        </div>
       </section>
 
-      <section className="partners-section section-light" id="aliados">
-        <div className="section-kicker"><span>03</span> / ALIADOS</div>
-        <div className="partners-layout">
+      <section className="allies-section section-wrap" id="aliados">
+        <div className="section-label">
+          <span>03</span> / ALIADOS
+        </div>
+        <div className="allies-content">
           <h2>
-            La seguridad
+            La seguridad se construye
             <br />
-            es un trabajo
-            <br />
-            <span>colaborativo.</span>
+            <span>en colaboración.</span>
           </h2>
-          <div className="partners-copy">
-            <p>
-              Buscamos construir relaciones con profesionales, organizaciones
-              y proveedores tecnológicos que compartan una visión responsable
-              de la inteligencia digital y la ciberseguridad.
-            </p>
-            <a className="text-link" href="#contacto">
-              Hablemos de colaboración <span>→</span>
-            </a>
-          </div>
+          <p>
+            Un espacio para integrar capacidades, conocimiento y
+            colaboración tecnológica con organizaciones especializadas.
+          </p>
         </div>
-
-        <div className="partner-placeholder">
-          <span className="partner-symbol">+</span>
-          <div>
-            <strong>Red de colaboración</strong>
-            <p>Espacio para aliados y socios tecnológicos verificados.</p>
-          </div>
-          <span className="partner-label">ALIADOS POR DEFINIR</span>
-        </div>
+        <a className="text-link" href="#contacto">
+          Conversemos sobre alianzas <span>↗</span>
+        </a>
       </section>
 
-      <section className="contact-section" id="contacto">
-        <div className="contact-grid" aria-hidden="true" />
-        <div className="section-kicker"><span>04</span> / CONTACTO</div>
-
-        <div className="contact-layout">
-          <div>
-            <span className="contact-eyebrow">INICIEMOS UNA CONVERSACIÓN</span>
-            <h2>
-              El siguiente paso
-              <br />
-              <span>empieza aquí.</span>
-            </h2>
-            <p>
-              ¿Buscas evaluar la seguridad de tus activos, explorar un
-              proyecto de inteligencia digital o establecer una alianza?
-              Conversemos sobre el alcance y los objetivos.
-            </p>
-          </div>
-
-          <div className="contact-card">
-            <span className="contact-card-label">CONTACTO PROFESIONAL</span>
-            <h3>Cuéntanos qué necesitas.</h3>
-            <p>
-              Escríbenos para conversar sobre servicios, evaluaciones
-              autorizadas y oportunidades de colaboración.
-            </p>
-            <a href="mailto:contacto@colombia-intelligence.com">
-              Consultar por correo <span>↗</span>
-            </a>
-            <small>
-              Correo provisional: reemplazar por el canal oficial antes
-              de publicar la web.
-            </small>
-          </div>
+      <section className="contact-section section-wrap" id="contacto">
+        <div className="section-label">
+          <span>04</span> / CONTACTO
         </div>
-
-        <footer className="landing-footer">
-          <a className="landing-brand footer-brand" href="#inicio">
-            <span className="landing-logo">CI<span>.</span></span>
-            <span className="landing-brand-copy">
-              <strong>COLOMBIA</strong>
-              <small>INTELLIGENCE</small>
-            </span>
-          </a>
-
-          <span>INTELIGENCIA DIGITAL · CIBERSEGURIDAD</span>
-          <a href="#inicio">VOLVER AL INICIO ↑</a>
-          <small>© {new Date().getFullYear()} Colombia Intelligence</small>
-        </footer>
+        <p className="eyebrow">EL SIGUIENTE PASO</p>
+        <h2>
+          Hablemos de
+          <br />
+          <span>seguridad.</span>
+        </h2>
+        <p className="contact-description">
+          Cuéntanos qué necesitas evaluar, investigar o proteger.
+        </p>
+        <a
+          className="button-primary"
+          href="mailto:contacto@verticecybersecurity.com"
+        >
+          Contactar a Vértice <span>↗</span>
+        </a>
+        <p className="contact-note">
+          Correo provisional: configura el correo corporativo antes de publicar.
+        </p>
       </section>
+
+      <footer className="site-footer">
+        <a className="brand footer-brand" href="#inicio">
+          <span className="brand-symbol">V</span>
+          <span className="brand-name">
+            VÉRTICE
+            <small>CYBERSECURITY</small>
+          </span>
+        </a>
+        <span>ANTICIPAR. INVESTIGAR. PROTEGER.</span>
+        <span>© {new Date().getFullYear()} VÉRTICE</span>
+      </footer>
     </main>
   );
 }
